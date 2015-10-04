@@ -2426,14 +2426,21 @@ void process_commands()
       SERIAL_ECHOLN("");
     }break;
     #endif
-    case 220: // M220 S<factor in percent>- set speed factor override percentage
-    {
+
+	case 220: // M220 S<factor in percent>- set speed factor override percentage
+	{
       if(code_seen('S'))
       {
         feedmultiply = code_value() ;
       }
-    }
-    break;
+      else
+      {
+        SERIAL_ECHO_START;
+        SERIAL_ECHO("FeedMultipy ");
+        SERIAL_ECHOLN(feedmultiply);
+      }
+    }break;
+
     case 221: // M221 S<factor in percent>- set extrude factor override percentage
     {
       if(code_seen('S'))
@@ -2450,6 +2457,12 @@ void process_commands()
         {
           extrudemultiply = tmp_code ;
         }
+      }
+      else
+      {
+        SERIAL_ECHO_START;
+        SERIAL_ECHO("ExtrudeMultipy ");
+        SERIAL_ECHOLN(extrudemultiply);
       }
     }
     break;

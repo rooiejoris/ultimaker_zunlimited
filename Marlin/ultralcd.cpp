@@ -197,6 +197,7 @@ static void lcd_status_screen()
         encoderPosition = 0;
         lcd_quick_feedback();
         lcd_implementation_init(); // to maybe revive the LCD if static electricity killed it.
+
     }
 
 #ifdef ULTIPANEL_FEEDMULTIPLY
@@ -387,14 +388,14 @@ static void lcd_tune_menu()
     MENU_ITEM_EDIT(int3, MSG_FAN_SPEED, &fanSpeed, 0, 255);
 #if EXTRUDERS == 1
     MENU_ITEM_EDIT(int3, MSG_FLOW, &extrudemultiply, 10, 999);
-#else
-    MENU_ITEM_EDIT(int3, MSG_FLOW0, &extruder_multiply[0], 10, 999);
-#if TEMP_SENSOR_1 != 0
-    MENU_ITEM_EDIT(int3, MSG_FLOW1, &extruder_multiply[1], 10, 999);
-#endif
-#if TEMP_SENSOR_2 != 0
-    MENU_ITEM_EDIT(int3, MSG_FLOW2, &extruder_multiply[2], 10, 999);
-#endif
+	// z-unlimited joris, not neessary to have flow 0 when there are not multiple extruders
+	//    MENU_ITEM_EDIT(int3, MSG_FLOW0, &extruder_multiply[0], 10, 999);
+	#if TEMP_SENSOR_1 != 0
+    	MENU_ITEM_EDIT(int3, MSG_FLOW1, &extruder_multiply[1], 10, 999);
+	#endif
+	#if TEMP_SENSOR_2 != 0
+    	MENU_ITEM_EDIT(int3, MSG_FLOW2, &extruder_multiply[2], 10, 999);
+	#endif
 #endif
 
 #ifdef BABYSTEPPING
@@ -576,6 +577,10 @@ static void lcd_prepare_menu()
     MENU_ITEM(gcode, MSG_DISABLE_STEPPERS, PSTR("M84"));
     MENU_ITEM(function, MSG_AUTO_HOME, lcd_home);
     MENU_ITEM(submenu, "Move Z", lcd_prepare_move_z);
+    MENU_ITEM(gcode, MSG_DISABLE_STEPPERSXY, PSTR("M84 X Y"));
+    MENU_ITEM(gcode, MSG_DISABLE_STEPPERSZ, PSTR("M84 Z"));
+    MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+    MENU_ITEM(gcode, MSG_AUTO_HOMEXY, PSTR("G28 X0 Y0"));
     //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 X0 Y0 Z0"));
 #if TEMP_SENSOR_0 != 0
   #if TEMP_SENSOR_1 != 0 || TEMP_SENSOR_2 != 0 || TEMP_SENSOR_BED != 0
