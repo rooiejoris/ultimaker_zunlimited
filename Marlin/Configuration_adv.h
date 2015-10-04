@@ -86,7 +86,8 @@
 //=============================Mechanical Settings===========================
 //===========================================================================
 
-//#define ENDSTOPS_ONLY_FOR_HOMING // If defined the endstops will only be used for homing
+// joris -z-unlimited 2014-07-22
+#define ENDSTOPS_ONLY_FOR_HOMING // If defined the endstops will only be used for homing
 
 
 //// AUTOSET LOCATIONS OF LIMIT SWITCHES
@@ -236,7 +237,7 @@
 
 // Feedrates for manual moves along X, Y, Z, E from panel
 #ifdef ULTIPANEL
-#define MANUAL_FEEDRATE {50*60, 50*60, 4*60, 60}  // set the speeds for manual moves (mm/min)
+#define MANUAL_FEEDRATE {50*60, 50*60, 10*60, 60}  // set the speeds for manual moves (mm/min)
 #endif
 
 //Comment to disable setting feedrate multiplier via encoder
@@ -293,7 +294,9 @@
 #define SDCARD_RATHERRECENTFIRST  //reverse file order of sd card menu display. Its sorted practically after the file system block order.
 // if a file is deleted, it frees a block. hence, the order is not purely chronological. To still have auto0.g accessible, there is again the option to do that.
 // using:
-//#define MENU_ADDAUTOSTART
+
+// joris -z-unlimited 2014-07-22
+#define MENU_ADDAUTOSTART
 
 // The hardware watchdog should reset the microcontroller disabling all outputs, in case the firmware gets stuck and doesn't do temperature regulation.
 #define USE_WATCHDOG
@@ -311,7 +314,9 @@
 // Babystepping enables the user to control the axis in tiny amounts, independently from the normal printing process
 // it can e.g. be used to change z-positions in the print startup phase in real-time
 // does not respect endstops!
-//#define BABYSTEPPING
+
+// joris -z-unlimited 2014-07-22
+#define BABYSTEPPING
 #ifdef BABYSTEPPING
   #define BABYSTEP_XY  //not only z, but also XY in the menu. more clutter, more functions
   #define BABYSTEP_INVERT_Z false  //true for inverse movements in Z
@@ -495,3 +500,4 @@ const unsigned int dropsegments=5; //everything with less than this number of st
 
 
 #endif //__CONFIGURATION_ADV_H
+
